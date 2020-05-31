@@ -37,6 +37,7 @@ const userSchema = new mongoose.Schema({
 
 },{timestamps: true})
 
+
 // virtual field 
 userSchema.virtual('password')
 .set(function(password){
@@ -51,16 +52,21 @@ userSchema.virtual('password')
 userSchema.methods = {
 
   // authenticate users on sign in
-  authenticate: function(plainText){
-    return this.encryptPassword(plainText) === this.hashed_password
+  authenticate: function(plainTextPassword){
+    console.log(`plainTextPassw:  ${plainTextPassword}`)
+    console.log(`encryptPassword: ${this.encryptPassword(plainTextPassword)}`)
+    console.log(`hased_password:  ${this.hashed_password}`)
+    return this.encryptPassword(plainTextPassword) === this.hashed_password
   },
 
 
   // encrypt password
   encryptPassword: function(password){
+    
     if(!password){
       return ''
     }
+
     try{
       return crypto.createHmac('sha1', this.salt)
       .update(password)
@@ -68,6 +74,7 @@ userSchema.methods = {
     } catch(err){
       return ''
     }
+
   }
 }
 

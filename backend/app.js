@@ -10,6 +10,10 @@ require('dotenv').config()
 // import routes
 const userRoutes = require('./routes/user')
 
+
+// EXPERIMENTAL ROUTES
+const cryptoExperiements = require('./routes/cyptofun')
+
 // app
 const app = express()
 
@@ -27,6 +31,12 @@ app.use(cookieParser())
 app.use(expressValidator())
 // routes middleware
 app.use('/api', userRoutes)
+
+// EXPERIMENTAL
+app.use('/api', cryptoExperiements)
+
+
+
 
 const port = process.env.PORT || 8000
 
