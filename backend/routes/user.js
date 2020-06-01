@@ -1,11 +1,21 @@
 const express = require('express')
 const router = express.Router()
-const {signUp, signIn} = require('../controllers/user')
-const {userSignupValidator} = require('../validator')
+const {userById} = require('../controllers/user')
+const {requireSignIn, isAdmin, isAuth } = require('../controllers/auth')
 
-router.post('/signup',userSignupValidator, signUp)
+router.get('/secret/:userId', requireSignIn, isAuth, isAdmin, (req, res)=>{
+  res.json({
+    user: req.profile
+  })
+})
 
-router.post('/signin', signIn)
+router.param("userId", userById)
 
+
+
+// TEST FOR requireSignIn
+/* router.get('/hello', requireSignIn, (req, res)=>{
+  res.send('hello there this needs sign in.')
+}) */
 
 module.exports = router
