@@ -14,8 +14,6 @@ exports.categoryById = (req, res, next, id)=>{
   })
 }
 
-
-
 exports.create = (req, res) => {
 
     const category = new Category(req.body)
@@ -67,7 +65,6 @@ exports.update = (req, res)=>{
   
 }
 
-
 exports.remove = (req, res)=>{
   let category = req.category
   category.remove((err, success)=>{
@@ -79,3 +76,4 @@ exports.remove = (req, res)=>{
     res.status(202).json({message: `Category with id of ${req.params.categoryId} was successfully deleted.`})
   })
 }
+
