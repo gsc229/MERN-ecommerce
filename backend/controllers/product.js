@@ -38,7 +38,7 @@ exports.remove = (req, res)=>{
     res.status(202).json({message: `Product with id of ${req.params.productId} was successfully deleted.`})
   })
 }
-
+// CREATE NEW PRODUCT
 exports.create = (req, res)=>{  
   let form = new formidable.IncomingForm()
   form.keepExtensions = true
@@ -162,12 +162,12 @@ exports.list = (req, res)=>{
 }
 
 exports.listRelated = async (req, res)=>{
-  console.log("req.params: ",req.params)
-  const product = await Product.findById({"_id": req.params.productId })
-  const category = product.category
-  console.log(category)
-  Product.find({category})
-    .select("-photo")
+  
+  let limit = req.query.limit ? parseInt(req.query.limit) : 6
+  console.log("req.product: ",req.product)
+  Product.find({ _id: {$ne: req.product}, category: req.product.category})
+    .limit(limit)
+    .populate('category', '_id, name')
     .exec((err, products)=>{
       if(err){
         return res.status(400).json({
