@@ -143,13 +143,13 @@ exports.update = (req, res)=>{
 */
 exports.list = (req, res)=>{
   let order = req.query.order ? req.query.order : 'asc'
-  let srotBy = req.query.srotBy ? req.query.srotBy : '_id'
-  let limit = req.query.limit ? req.query.limit : 6
+  let sortBy = req.query.sortBy ? req.query.sortBy : '_id'
+  let limit = req.query.limit ? parseInt(req.query.limit) : 6
   
   Product.find()
     .select("-photo")
     .populate("category")
-    .sort([[srotBy, order]])
+    .sort([[sortBy, order]])
     .limit(limit)
     .exec((err, products)=>{
       if(err){
@@ -159,4 +159,23 @@ exports.list = (req, res)=>{
       }
       res.send(products)
     })
+}
+
+exports.listRelated = async (req, res)=>{
+  console.log("req.params: ",req.params)
+  const product = await Product.findById({"_id": req.params.productId })
+  const category = product.category
+  console.log(category)
+  Product.find({category})
+    .select("-photo")
+    .exec((err, products)=>{
+      if(err){
+        return res.status(400).json({
+          message: 'products not found'
+        })
+
+      }
+      res.send(products)
+    })
+
 }
