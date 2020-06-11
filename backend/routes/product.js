@@ -1,12 +1,13 @@
 const express = require('express')
 const router = express.Router()
 
-const {create, productById, read, remove, update, list, listRelated, listCategories} = require('../controllers/product')
+const {create, productById, read, remove, update, list, listRelated, listCategories, listBySearch, photo} = require('../controllers/product')
 const {requireSignIn, isAdmin, isAuth} = require('../controllers/auth')
 const {userById} = require('../controllers/user')
 
 
 router.post("/products/by/search", listBySearch)
+router.get('/product/photo/:productId', photo)
 router.post('/product/create/:userId', requireSignIn,isAuth, isAdmin, create)
 router.get('/product/:productId', requireSignIn, read)
 router.delete('/product/:productId/:userId', requireSignIn,isAuth, isAdmin, remove)
