@@ -9,7 +9,7 @@ const Layout = ({
   ...props
 
 }) => {
-  console.log('Layout props ', props)
+ 
   return (
     <div>
       <Menu />
