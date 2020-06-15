@@ -6,13 +6,13 @@ const expressJwt = require('express-jwt')// authorization check
 const {errorHandler} = require('../helpers/dbErrorHandler')
 
 exports.signUp = (req, res) => {
-  console.log(req.body)
+  
   const user = new User(req.body)
 
   user.save((err, user)=> {
       if(err){
         res.status(400).json({
-          err: errorHandler(err)
+          error: errorHandler(err)
         })
       }
       user.salt = undefined
@@ -26,14 +26,14 @@ exports.signUp = (req, res) => {
 }
 
 exports.signIn = (req, res) => {
-  console.log(req.body)
+  
   // find user baseed on email
   const {email, password} = req.body
   User.findOne({email}, (err, user) => {
 
     if(err || !user){
       return res.status(400).json({
-        err: "User with that email does not exist. Please signup!"
+        error: "User with that email does not exist. Please signup!"
       })
     }
     
@@ -60,10 +60,9 @@ exports.signIn = (req, res) => {
 }
 
 exports.signOut = (req, res)=> {
-  console.log(req.body)
+  
   res.clearCookie('t')
   res.json({"message": "Signout success"})
-
 
 }
 // middleware
