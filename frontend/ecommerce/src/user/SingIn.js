@@ -5,8 +5,7 @@ import { signin, authenticate, isAuthenticated } from '../auth/index'
 
 const SingIn = () => {
 
-  const [values, setValues] = useState({
-    
+  const [values, setValues] = useState({    
     email: 'greg1.@gmail.com',
     password: '12345678',
     error: '',
