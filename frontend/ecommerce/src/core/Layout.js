@@ -1,5 +1,5 @@
 import React from 'react'
-
+import Menu from './Menu'
 
 const Layout = ({
   title = 'Title', 
@@ -11,13 +11,17 @@ const Layout = ({
 }) => {
   console.log('Layout props ', props)
   return (
-    <div className="jumbotron">
-      <div>
-        <h2>{title}</h2>
-        <p className='lead'>{description}</p>
+    <div>
+      <Menu />
+      <div className="jumbotron">
+        <div>
+          <h2>{title}</h2>
+          <p className='lead'>{description}</p>
+        </div>
+        
       </div>
       <div className={className}>
-        {children}
+          {children}
       </div>
     </div>
   )
