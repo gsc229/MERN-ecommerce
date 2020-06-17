@@ -129,7 +129,8 @@ const AddProduct = () => {
         <select
           onChange={handleChange("shipping")}
           className="form-control"
-        >
+        > 
+          <option value="">Please Select</option>
           <option value="0">No</option>
           <option value="1">Yes</option>
         </select>
