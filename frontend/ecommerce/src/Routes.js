@@ -7,6 +7,7 @@ import PrivateRoute from './auth/PrivateRoute'
 import Dashboard from './user/UserDashboard'
 import AdminRoute from './auth/AdminRoute'
 import AdminDashboard from './user/AdminDashboard'
+import AddCategory from './admin/AddCategory'
 
 const Routes = () => {
   return (
@@ -17,7 +18,8 @@ const Routes = () => {
           <Route path='/signin' exact component={SignIn} />
           <Route path='/signup' exact component={SignUp} />   
           <PrivateRoute path='/user/dashboard' exact compenent={Dashboard} />
-          <AdminRoute path='/admin/dashboard' exact compenent={AdminDashboard} />  
+          <AdminRoute path='/admin/dashboard' exact compenent={AdminDashboard} />
+          <AdminRoute path='/create/category' exact compenent={AddCategory} />
         </Switch>
       </BrowserRouter>
     </div>
