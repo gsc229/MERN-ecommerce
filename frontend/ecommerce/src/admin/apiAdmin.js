@@ -53,8 +53,8 @@ export const getCategories = () => {
     return categories
   })
   .catch(error =>{
-    console.log("ERROR", error.response.data)
-    
-    
+    console.log("ERROR")
+    console.log('apiAdmin getCategories error.response.data: ', error.response.data)
+    return error.response.data
   })
 }

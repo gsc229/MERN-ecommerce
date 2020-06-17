@@ -39,14 +39,14 @@ const AddProduct = () => {
   } = values
 
   const {user} = isAuthenticated()
-  
+  console.log('error AddProduct.js:', error)
   const init = () => { 
     getCategories().then(data => {
       if(data.error){
         console.log('ERROR AddProduct.js init')
         setValues({...values, error: data.error})
       } else {
-        setValues({...values, categories: data, formData: new FormData(), error: ''})
+        setValues({...values, categories: data, formData: new FormData(), error: '', createdProduct: ''})
       }
     })
   }
@@ -72,6 +72,7 @@ const AddProduct = () => {
         console.log('ERROR AddProduct.js clickSubmit')
         setValues({...values, error: data.error})
       } else{
+        console.log('DATA CLICK SUBMIT: ', data)
         setValues({...values, name: '', description: '', photo: '', price: '', quantity: '', loading: false, createdProduct: data.name})
       }
     })
@@ -156,7 +157,7 @@ const AddProduct = () => {
   )
 
   const showSuccess= () => (
-    <div className='alert alert-danger' style={{display: createProduct ? '' : 'none'}} ><h2>{`${createProduct} is created!`}</h2></div>
+    <div className='alert alert-success' style={{display: createdProduct ? '' : 'none'}} ><h2>{`${createdProduct} is created!`}</h2></div>
   )
 
   const showLoading = () => (
