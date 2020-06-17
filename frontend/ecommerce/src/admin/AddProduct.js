@@ -45,7 +45,7 @@ const AddProduct = () => {
       if(data.error){
         setValues({...values, error: data.error})
       } else {
-        setValues({...values, categories: data.sort(), formData: new FormData()})
+        setValues({...values, categories: data, formData: new FormData()})
       }
     })
   }
