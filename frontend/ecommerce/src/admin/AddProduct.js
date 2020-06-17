@@ -27,10 +27,9 @@ const AddProduct = () => {
   description,
   price,
   categories,
-  category,
-  shipping,
+ 
   quantity,
-  photo,
+  
   loading,
   error,
   createdProduct,
@@ -39,14 +38,14 @@ const AddProduct = () => {
   } = values
 
   const {user} = isAuthenticated()
-  console.log('error AddProduct.js:', error)
+  
   const init = () => { 
     getCategories().then(data => {
       if(data.error){
         console.log('ERROR AddProduct.js init')
         setValues({...values, error: data.error})
       } else {
-        setValues({...values, categories: data, formData: new FormData(), error: '', createdProduct: ''})
+        setValues({...values, categories: data, formData: new FormData(), error: ''})
       }
     })
   }
@@ -71,9 +70,9 @@ const AddProduct = () => {
       if(data.error){
         console.log('ERROR AddProduct.js clickSubmit')
         setValues({...values, error: data.error})
-      } else{
+      } else{ 
         console.log('DATA CLICK SUBMIT: ', data)
-        setValues({...values, name: '', description: '', photo: '', price: '', quantity: '', loading: false, createdProduct: data.name})
+        setValues({...values, name: '', description: '', photo: '', price: '', quantity: '', loading: false, createdProduct: data.product.name})
       }
     })
   }

@@ -12,7 +12,7 @@ const AddCategory = () => {
   const [success, setSuccess] = useState('')
 
   // destructure user info and token from local storage
-  const {user, token}  = isAuthenticated()
+  const {user}  = isAuthenticated()
 
 
   const handleChange = (e) => {
