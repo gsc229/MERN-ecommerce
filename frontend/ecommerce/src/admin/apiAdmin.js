@@ -9,14 +9,12 @@ export const createCategory = (userId, category) => {
   })
   .catch(error =>{
     console.log("ERROR")
-    console.log('apiAdmin error.response.data: ', error.response.data)
-    
-
+    console.log('apiAdmin createCategory error.response.data: ', error.response.data)
     return error.response.data
   })
 }
 
-export const createProduct= (userId, product) => {
+export const createProduct = (userId, product) => {
   return axiosWIthAuth()
   .post(`/product/create/${userId}`, product)
   .then(responese => {
@@ -25,7 +23,21 @@ export const createProduct= (userId, product) => {
   })
   .catch(error =>{
     console.log("ERROR")
-    console.log('apiAdmin error.response.data: ', error.response.data)
+    console.log('apiAdmin createProduct error.response.data: ', error.response.data)
+    return error.response.data
+  })
+}
+
+export const getCategories = () => {
+  return axiosWIthAuth()
+  .get(`/category`)
+  .then(responese => {
+    console.log('response',responese.data.categories)
+    return responese.data.categories
+  })
+  .catch(error =>{
+    console.log("ERROR")
+    console.log('apiAdmin getCategories error.response.data: ', error.response.data)
     return error.response.data
   })
 }

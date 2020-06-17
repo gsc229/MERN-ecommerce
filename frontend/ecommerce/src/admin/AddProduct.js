@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import Layout from '../core/Layout'
 import {isAuthenticated} from '../auth'
 import {Link} from 'react-router-dom'
-import {createProduct} from './apiAdmin'
+import {createProduct, getCategories} from './apiAdmin'
 
 const AddProduct = () => {
 
@@ -40,9 +40,19 @@ const AddProduct = () => {
 
   const {user} = isAuthenticated()
   
-  useEffect(()=>{
-    setValues({...values, formData: new FormData()})
+  const init = () => { 
+    getCategories().then(data => {
+      if(data.error){
+        setValues({...values, error: data.error})
+      } else {
+        setValues({...values, categories: data.sort(), formData: new FormData()})
+      }
+    })
+  }
 
+
+  useEffect(()=>{
+    init()
   },[])
 
   const handleChange = name => event => {
@@ -107,10 +117,10 @@ const AddProduct = () => {
         className='form-control'
         >
 
-        <option value="5ee970b53043942108611142">Drupal</option>
-        <option value="5ee966ff304394210861112a">Rest Framework</option>
-        <option value="5ed52fc8944a7123c8e3cf25">Node</option>
-        <option value="5ed5755c7119ff40b03ca3cc">React</option>
+        <option value="">Please Select</option>
+          {categories && categories.map((c, i)=>(
+            <option key={i} value={c._id} >{c.name}</option>
+          ))}
 
         </select>
       </div>
