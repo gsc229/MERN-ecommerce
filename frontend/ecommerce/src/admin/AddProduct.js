@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import Layout from '../core/Layout'
 import {isAuthenticated} from '../auth'
 import {Link} from 'react-router-dom'
-import {createCategory} from './apiAdmin'
+import {createProduct} from './apiAdmin'
 
 const AddProduct = () => {
 
@@ -53,7 +53,16 @@ const AddProduct = () => {
 
 
   const clickSubmit = (e) => {
-    //
+    e.preventDefault()
+    setValues({...values, error: "", loading: true})
+    createProduct(user._id, formData)
+    .then(data=>{
+      if(data.error){
+        setValues({...values, error: data.error})
+      } else{
+        setValues({...values, name: '', description: '', photo: '', price: '', quantity: '', loading: false, createdProduct: data.name})
+      }
+    })
   }
 
   const newPostForm = () => (
