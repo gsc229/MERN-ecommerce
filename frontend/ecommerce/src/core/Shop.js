@@ -103,8 +103,15 @@ const Shop = () => {
           </div>  
         </div>
         
-        <div className="col-8">          
-          {JSON.stringify(filteredResults)}
+        <div className="col-8">
+          <h2 className='mb-4'>Search Results</h2>
+          <div className='row'>
+            
+            {filteredResults.map(product=>(
+              <Card key={product._id} product={product} />
+            ))}
+                      
+          </div>
         </div>
       </div>
 
