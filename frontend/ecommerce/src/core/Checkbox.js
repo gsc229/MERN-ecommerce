@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 
-const Checkbox = ({categories}) => {
+const Checkbox = ({categories, handleFilters}) => {
   //console.log('categories checkbox: ',categories)
 
   const [checked, setChecked] = useState([])
@@ -18,6 +18,7 @@ const Checkbox = ({categories}) => {
     }
     console.log('newCheckedCategoryId: ', newCheckedCategoryId)
     setChecked(newCheckedCategoryId)
+    handleFilters(newCheckedCategoryId, 'category')
   }
 
   return (
