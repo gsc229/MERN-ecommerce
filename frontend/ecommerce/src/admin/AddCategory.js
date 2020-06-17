@@ -1,5 +1,4 @@
 import React, {useState} from 'react'
-import axiosWithAuth from '../utils/axiosWithAuth'
 import Layout from '../core/Layout'
 import {isAuthenticated} from '../auth'
 import {Link} from 'react-router-dom'
