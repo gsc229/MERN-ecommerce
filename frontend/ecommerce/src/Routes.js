@@ -9,8 +9,7 @@ import AdminRoute from './auth/AdminRoute'
 import AdminDashboard from './user/AdminDashboard'
 import AddCategory from './admin/AddCategory'
 import AddProduct from './admin/AddProduct'
-
-
+import Shop from './core/Shop'
 
 const Routes = () => {
   return (
@@ -19,11 +18,13 @@ const Routes = () => {
         <Switch>
           <Route path='/' exact component={Home} />        
           <Route path='/signin' exact component={SignIn} />
-          <Route path='/signup' exact component={SignUp} />   
+          <Route path='/signup' exact component={SignUp} />
+          <Route path='/shop' exact component={Shop} />     
           <PrivateRoute path='/user/dashboard' exact compenent={Dashboard} />
           <AdminRoute path='/admin/dashboard' exact compenent={AdminDashboard} />
           <AdminRoute path='/create/category' exact compenent={AddCategory} />
           <AdminRoute path='/create/product' exact compenent={AddProduct} />
+          
         </Switch>
       </BrowserRouter>
     </div>

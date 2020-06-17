@@ -9,10 +9,10 @@ const Card = ({product}) => {
         <div className="card-header">{product.name}</div>
         <div className="card-body">
         <Image item={product} url='product' />
-        <p>{product.description}</p>
+        <p>{product.description.substring(0, 100)}...</p>
         <p>${product.price}</p>
-        <Link>
-          <button className="btn btn-outline-primary mt-2 mb-2">
+        <Link to='/'>
+          <button className="btn btn-outline-primary mt-2 mb-2 mr-2">
             View Product
           </button>
         </Link>
