@@ -34,3 +34,24 @@ export const getCategories = () => {
     return error.response.data
   })
 }
+
+
+export const getFilteredProducts = (skip, limit, filters={}) => {
+  const data = {
+    limit,
+    skip,
+    filters
+  }
+  return axiosWIthAuth()
+  .post(`/products/by/search`, data)
+  .then(responese => {
+    console.log('response',responese.data)
+    return responese.data
+  })
+  .catch(error =>{
+    console.log("ERROR")
+    console.log('apiCore getFilteredProducts error.response.data: ', error.response.data)
+    return error.response.data
+  })
+}
+
