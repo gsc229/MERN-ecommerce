@@ -53,8 +53,8 @@ export const getCategories = () => {
     return categories
   })
   .catch(error =>{
-    console.log("ERROR")
+    console.log("ERROR", error.response.data)
     
-    return error.response.data
+    
   })
 }
