@@ -148,6 +148,16 @@ const AddProduct = () => {
     </form>
   )
 
+
+  const showError = () => {
+    <div className='alert alert-danger' style={{display: error ? '' : 'none'}} >{error}</div>
+  }
+
+  const showSuccess= () => {
+    <div className='alert alert-danger' style={{display: createProduct ? '' : 'none'}} ><h2>{`${createProduct} is created!`}</h2></div>
+  }
+
+  
   return (
     <Layout 
     title="Add a new product" 
@@ -155,6 +165,7 @@ const AddProduct = () => {
     >
       <div className='row'>
         <div className="col-md-8 offset-md-2">
+          {}
           {newPostForm()} 
         </div>
       </div> 
