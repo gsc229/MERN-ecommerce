@@ -46,7 +46,7 @@ export const getFilteredProducts = (skip, limit, filters={}) => {
   .post(`/products/by/search`, data)
   .then(responese => {
     console.log('response',responese.data)
-    return responese.data.data
+    return responese.data
   })
   .catch(error =>{
     console.log("ERROR")
