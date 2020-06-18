@@ -34,9 +34,6 @@ const Shop = () => {
   }
 
 
-  
-
-
   const handlePrice = (id)=> {
     const data = prices
     let array = []
@@ -97,7 +94,7 @@ const Shop = () => {
       } else{
         setFilteredResults([...filteredResults, ...data.data])
         setSize(data.size)
-        setSkip(0)
+        setSkip(toSkip)
       }
     })
   }
