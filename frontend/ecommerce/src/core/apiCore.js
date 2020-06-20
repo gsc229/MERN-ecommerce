@@ -1,6 +1,7 @@
 import axiosWIthAuth from '../utils/axiosWithAuth'
 import {sortByName} from '../utils/sorterFunctions'
 import queryString from 'query-string'
+import {API} from '../config'
 
 export const getProducts = (sortBy) => {
   return axiosWIthAuth()
@@ -35,7 +36,6 @@ export const getCategories = () => {
   })
 }
 
-
 export const getFilteredProducts = (skip, limit, filters={}) => {
   const data = {
     limit,
@@ -57,7 +57,7 @@ export const getFilteredProducts = (skip, limit, filters={}) => {
 
 export const list = (params) => {
   const query = queryString.stringify(params)
-  console.log('query', query)
+  console.log('apiCore list query', query)
   return axiosWIthAuth()
   .get(`/products/search?${query}`)
   .then(responese => {
@@ -73,3 +73,24 @@ export const list = (params) => {
     return error.response.data
   })
 }
+
+export const read = (productId) => {
+
+  console.log('apiCore read productId: ', productId)
+
+  return axiosWIthAuth()
+  .get(`/product/${productId}`)
+  .then(response => {
+    console.log('apiCore read response: ',response)    
+    const product = response.data.product
+    console.log(product)
+    return product
+  })
+  .catch(error =>{
+    console.log("ERROR")
+    console.log('apiCore read error.response.data: ', error.response)
+    return error.response
+  })
+}
+
+
