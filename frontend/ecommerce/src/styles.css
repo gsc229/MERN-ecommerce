@@ -1,3 +1,26 @@
+/* Nav items */
+
+.cart-badge{
+  border: 2px solid red;
+  background-color:  red;
+  padding: 5px;
+  font-size: 15px;
+  font-style: italic;
+  border-radius: 50%;
+  display: inline-block;  
+  height: 15px;
+  width: 15px;
+  text-align: center;    
+  font-weight: bolder;
+}
+
+.cart-badge small{  
+  position: relative;
+  right: 3px;
+  margin: 0 auto;
+}
+
+
 /* 
  border radius
 */
@@ -8,6 +31,36 @@
 
 .product-img{
   min-height: 100px;
+}
+
+/** 
+ * single product page - product name 
+*/
+
+.name{
+  background: indigo;
+  color: white;
+  font-weight: bold;
+}
+
+/* black shade form 10-1 */
+.black-10 {
+  background: #f2f2f2;
+}
+.black-9 {
+  background: #e6e6e6;
+}
+.black-8 {
+  background: #d9d9d9;
+}
+.black-7 {
+  background: #cccccc;
+}
+.black-6 {
+  background: #bfbfbf;
+}
+.black-5 {
+  background: #b3b3b3;
 }
 
 /** 

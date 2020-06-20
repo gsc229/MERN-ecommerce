@@ -29,10 +29,13 @@ const Search = () => {
     loadCategories()
   },[])
 
+  useEffect(()=>{
+    searchData()
+  },[category, search])
 
   const searchData = () => {
-    //console.log(search, category)
-    if(search){
+    console.log('search, category',search, category)
+    if(search || category){
       list({search: search || undefined, category: category })
       .then(response => {
         if(response.error){
@@ -50,8 +53,11 @@ const Search = () => {
     e.preventDefault()
     searchData()
   }
+  
   const handleChange = (name) => event => {
     setData({...data, [name]: event.target.value, searched: false})
+    
+    
   }
 
   const searchMessage = (searched, results) => {
@@ -63,7 +69,7 @@ const Search = () => {
     }
   }
 
-  const searchedProducts = (results = []) => {  
+  const searchResults = (results = []) => {  
       return (
       <div>
         <h2 className='mt-4 mb-4'>
@@ -71,7 +77,7 @@ const Search = () => {
         </h2>
         <div className='row'>
           {results.map((product, i)=>(
-            <Card key={i} product={product} />
+            <div className='col-4 mb-3' key={i}><Card product={product} /></div>
           ))}
         </div>
       </div>
@@ -107,10 +113,9 @@ const Search = () => {
   
   return (
     <div className='row'>
-      <div className='container mb-3'>{searchForm()}</div>
-      
+      <div className='container mb-3'>{searchForm()}</div>      
       <div className="container-fluid mb-3">
-        {searchedProducts(results)}
+        {searchResults(results)}
       </div>
     </div>
   )

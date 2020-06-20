@@ -267,10 +267,12 @@ exports.listSearch = (req, res) => {
   if(req.query.search){
     // Mongoose $regex provides pattern matching in strings and queries
     query.name = {$regex: req.query.search, $options: 'i'}
-    if(req.query.category && req.query.category !== 'All'){
-      query.category = req.query.category
-    }
+    
     // find the product based on query object with 2 properties search and category
+  }
+
+  if(req.query.category && req.query.category !== 'All'){
+    query.category = req.query.category
   }
 
   Product.find(query, (err, products)=>{

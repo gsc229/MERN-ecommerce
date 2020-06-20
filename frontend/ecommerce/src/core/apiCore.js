@@ -1,14 +1,15 @@
 import axiosWIthAuth from '../utils/axiosWithAuth'
 import {sortByName} from '../utils/sorterFunctions'
 import queryString from 'query-string'
+import {API} from '../config'
 
 export const getProducts = (sortBy) => {
   return axiosWIthAuth()
   .get(`/products?sortBy=${sortBy}&order=desc&limit=6`)
-  .then(responese => {
-    console.log('apiCore getProducts response: ',responese.data)
-    console.log(responese)
-    const products = responese.data
+  .then(response => {
+    console.log('apiCore getProducts response: ',response.data)
+    console.log(response)
+    const products = response.data
     
     return products
   })
@@ -22,9 +23,9 @@ export const getProducts = (sortBy) => {
 export const getCategories = () => {
   return axiosWIthAuth()
   .get(`/category`)
-  .then(responese => {
-    console.log('response',responese.data.categories)
-    const categories = responese.data.categories 
+  .then(response => {
+    console.log('response',response.data.categories)
+    const categories = response.data.categories 
     categories.sort(sortByName)
     return categories
   })
@@ -35,7 +36,6 @@ export const getCategories = () => {
   })
 }
 
-
 export const getFilteredProducts = (skip, limit, filters={}) => {
   const data = {
     limit,
@@ -44,9 +44,9 @@ export const getFilteredProducts = (skip, limit, filters={}) => {
   }
   return axiosWIthAuth()
   .post(`/products/by/search`, data)
-  .then(responese => {
-    console.log('response',responese.data)
-    return responese.data
+  .then(response => {
+    console.log('response',response.data)
+    return response.data
   })
   .catch(error =>{
     console.log("ERROR")
@@ -57,13 +57,13 @@ export const getFilteredProducts = (skip, limit, filters={}) => {
 
 export const list = (params) => {
   const query = queryString.stringify(params)
-  console.log('query', query)
+  console.log('apiCore list query', query)
   return axiosWIthAuth()
   .get(`/products/search?${query}`)
-  .then(responese => {
-    console.log('apiCore list response: ',responese.data)
-    console.log(responese)
-    const products = responese.data
+  .then(response => {
+    console.log('apiCore list response: ',response.data)
+    console.log(response)
+    const products = response.data
     
     return products
   })
@@ -71,5 +71,37 @@ export const list = (params) => {
     console.log("ERROR")
     console.log('apiCore list error.response.data: ', error.response.data)
     return error.response.data
+  })
+}
+
+export const read = (productId) => {
+
+  console.log('apiCore read productId: ', productId)
+
+  return axiosWIthAuth()
+  .get(`/product/${productId}`)
+  .then(response => {
+    console.log('apiCore read response: ',response)    
+    const product = response.data.product
+    console.log(product)
+    return product
+  })
+  .catch(error =>{
+    console.log("ERROR")
+    console.log('apiCore read error.response.data: ', error.response)
+    return error.response
+  })
+}
+
+export const listRelated = (productId) => {
+  return axiosWIthAuth()
+  .get(`/products/related/${productId}`)
+  .then(response=>{
+    console.log('apiCore listRelated response: ', response)
+    return response.data
+  })
+  .catch(error=>{
+    console.log('ERROR, apiCore listRelated:', error.response)
+    return error.response
   })
 }
