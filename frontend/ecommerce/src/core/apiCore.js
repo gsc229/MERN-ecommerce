@@ -6,10 +6,10 @@ import {API} from '../config'
 export const getProducts = (sortBy) => {
   return axiosWIthAuth()
   .get(`/products?sortBy=${sortBy}&order=desc&limit=6`)
-  .then(responese => {
-    console.log('apiCore getProducts response: ',responese.data)
-    console.log(responese)
-    const products = responese.data
+  .then(response => {
+    console.log('apiCore getProducts response: ',response.data)
+    console.log(response)
+    const products = response.data
     
     return products
   })
@@ -23,9 +23,9 @@ export const getProducts = (sortBy) => {
 export const getCategories = () => {
   return axiosWIthAuth()
   .get(`/category`)
-  .then(responese => {
-    console.log('response',responese.data.categories)
-    const categories = responese.data.categories 
+  .then(response => {
+    console.log('response',response.data.categories)
+    const categories = response.data.categories 
     categories.sort(sortByName)
     return categories
   })
@@ -44,9 +44,9 @@ export const getFilteredProducts = (skip, limit, filters={}) => {
   }
   return axiosWIthAuth()
   .post(`/products/by/search`, data)
-  .then(responese => {
-    console.log('response',responese.data)
-    return responese.data
+  .then(response => {
+    console.log('response',response.data)
+    return response.data
   })
   .catch(error =>{
     console.log("ERROR")
@@ -60,10 +60,10 @@ export const list = (params) => {
   console.log('apiCore list query', query)
   return axiosWIthAuth()
   .get(`/products/search?${query}`)
-  .then(responese => {
-    console.log('apiCore list response: ',responese.data)
-    console.log(responese)
-    const products = responese.data
+  .then(response => {
+    console.log('apiCore list response: ',response.data)
+    console.log(response)
+    const products = response.data
     
     return products
   })
@@ -93,4 +93,15 @@ export const read = (productId) => {
   })
 }
 
-
+export const listRelated = (productId) => {
+  return axiosWIthAuth()
+  .get(`/products/related/${productId}`)
+  .then(response=>{
+    console.log('apiCore listRelated response: ', response)
+    return response.data
+  })
+  .catch(error=>{
+    console.log('ERROR, apiCore listRelated:', error.response)
+    return error.response
+  })
+}
