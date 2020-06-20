@@ -59,7 +59,7 @@ export const list = (params) => {
   const query = queryString.stringify(params)
   console.log('query', query)
   return axiosWIthAuth()
-  .get(`/products?${query}`)
+  .get(`/products/search?${query}`)
   .then(responese => {
     console.log('apiCore list response: ',responese.data)
     console.log(responese)
