@@ -1,6 +1,6 @@
 import axiosWIthAuth from '../utils/axiosWithAuth'
 import {sortByName} from '../utils/sorterFunctions'
-
+import queryString from 'query-string'
 
 export const getProducts = (sortBy) => {
   return axiosWIthAuth()
@@ -55,3 +55,21 @@ export const getFilteredProducts = (skip, limit, filters={}) => {
   })
 }
 
+export const list = (params) => {
+  const query = queryString.stringify(params)
+  console.log('query', query)
+  return axiosWIthAuth()
+  .get(`/products?${query}`)
+  .then(responese => {
+    console.log('apiCore list response: ',responese.data)
+    console.log(responese)
+    const products = responese.data
+    
+    return products
+  })
+  .catch(error =>{
+    console.log("ERROR")
+    console.log('apiCore list error.response.data: ', error.response.data)
+    return error.response.data
+  })
+}
