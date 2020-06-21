@@ -4,7 +4,7 @@ import {getProducts} from './apiCore'
 import {getCart} from './cartHelpers'
 import Card from './Card'
 import { Link } from 'react-router-dom'
-
+import Checkout from './Checkout'
 
 
 const Cart = (props) => {
@@ -57,7 +57,9 @@ const Cart = (props) => {
         {items.length ? showItems(items) : noItemsMessage()}      
       </div>
       <div className="col-6">
-        <p>Show checkout options, shipping address/ update/ quantity</p>     
+        <h2 className="mb-4">Your cart summary: </h2>
+        <hr />
+        <Checkout products={items} />   
       </div>
     </div>
     

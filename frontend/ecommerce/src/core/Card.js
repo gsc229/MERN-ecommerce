@@ -14,10 +14,10 @@ const Card = ({
   setRefresh,
   refresh
 }) => {
-  console.log('CARD PROPS: ', props)
+  
   const [redirect, setRedirect] = useState(false)
   const [count, setCount] = useState(product.count)
-  console.log(redirect)
+
   const showViewButton = (showButton) => {
     return(showButton &&
     <Link to={`/product/${product._id}`}>
