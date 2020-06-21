@@ -119,4 +119,15 @@ export const getBraintreeClientToken = (userId) => {
   })
 }
 
-
+export const processPayment = (userId, paymentData) => {
+  return axiosWIthAuth()
+  .post(`/braintree/payment/${userId}`, paymentData)
+  .then(response=>{
+    console.log('apiCore processPayment response: ', response)
+    return response
+  })
+  .catch(error=>{
+    console.log('ERROR, apiCore processPayment:', error.response)
+    return error
+  })
+}

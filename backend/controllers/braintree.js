@@ -19,3 +19,23 @@ exports.generateToken = (req, res) => {
     }
   })
 }
+
+exports.processPayment = (req, res) => {
+  console.log('braintree controller processPayment req.body',req.body)
+  let nonceFromTheClient = req.body.paymentMethodNonce
+  let amountFromTheClient = req.body.amount
+  // charge
+  let newTransaction = gateway.transaction.sale({
+    amount: amountFromTheClient,
+    paymentMethodNonce: nonceFromTheClient,
+    options: {
+      submitForSettlement: true
+    }
+  }, (error, result)=>{
+    if(error){
+      res.status(500).json(error)
+    } else{
+      res.json(result)
+    }
+  })
+}
