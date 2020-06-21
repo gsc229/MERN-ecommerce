@@ -4,7 +4,7 @@ import {getProducts} from './apiCore'
 import Card from './Card'
 import Search from './Search'
 
-const Home = () => {
+const Home = (props) => {
 
   const [productsBySell, setProductsBySell] = useState([])
   const [productsByArrival, setProductsByArrival] = useState([])
@@ -41,11 +41,11 @@ const Home = () => {
 
   return (
     <Layout className='container-fluid' title="Home Page" description="Node React E-commerce App">
-      <Search />
+      <Search props={props} />
       <h2 className='mb-4'>New Arrivals</h2>
       <div className="row">
       {productsByArrival.map((product, i)=>(
-        <div className='col-4 mb-3' key={i}><Card product={product} /></div>
+        <div className='col-4 mb-3' key={i}><Card props={props} product={product} /></div>
       ))}
 
       </div>
@@ -53,7 +53,7 @@ const Home = () => {
       <h2 className='mb-4'>Best Sellers</h2>
       <div className="row">
       {productsBySell.map((product, i)=>(
-        <div className='col-4 mb-3' key={i}><Card product={product} /></div>
+        <div className='col-4 mb-3' key={i}><Card props={props} product={product} /></div>
       ))}
       </div>
     </Layout>

@@ -1,4 +1,4 @@
-import React, {Fragment, useEffect} from 'react'
+import React, {Fragment, useEffect, useState} from 'react'
 import {Link, withRouter} from 'react-router-dom'
 import {signout, isAuthenticated} from '../auth'
 import {itemTotal} from './cartHelpers'
@@ -12,11 +12,17 @@ const isActive = (history, path)=>{
 
 const Menu = ({history}) => {
   
+  const [refresh, setRefresh] = useState(false)
+
+
+  useEffect(()=>{
+    setRefresh(!refresh)
+  },[itemTotal()])
   
   
   
   return (
-    <div>      
+    <div className='menu-bar'>      
       <ul className="nav nav-tabs bg-primary">
         <li className="nav-item">
           <Link className="nav-link" to="/" style={isActive(history, '/')}>Home</Link>
@@ -27,7 +33,7 @@ const Menu = ({history}) => {
 
 
         <li className="nav-item">
-          <Link className="nav-link" to="/cart" style={isActive(history, '/cart')}>Cart <sup className='cart-badge'><small >{itemTotal()}</small></sup> </Link>
+          <Link className="nav-link" to="/cart" style={isActive(history, '/cart')}>Cart <sup className='cart-badge'><small>{itemTotal()}</small></sup> </Link>
         </li>
 
         

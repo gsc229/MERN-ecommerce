@@ -3,7 +3,7 @@ import Card from './Card'
 import {getCategories, list} from './apiCore'
 
 
-const Search = () => {
+const Search = (props) => {
 
   const [data, setData]=useState({
     categories: [],
@@ -77,7 +77,7 @@ const Search = () => {
         </h2>
         <div className='row'>
           {results.map((product, i)=>(
-            <div className='col-4 mb-3' key={i}><Card product={product} /></div>
+            <div className='col-4 mb-3' key={i}><Card props={props} product={product} /></div>
           ))}
         </div>
       </div>

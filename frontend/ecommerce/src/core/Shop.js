@@ -7,7 +7,7 @@ import RadioBox from './RadioBox'
 import {prices} from './fixedPrices'
 
 
-const Shop = () => {
+const Shop = (props) => {
 
   const [myFilters, setMyfilters] = useState({
     filters: {category: [], price: []}
@@ -132,7 +132,7 @@ const Shop = () => {
           <div className='row'>
             
             {filteredResults.map((product,i)=>(
-              <div className='col-4 mb-3' key={i}><Card product={product} /></div>
+              <div className='col-4 mb-3' key={i}><Card props={props} product={product} /></div>
             ))}
                       
           </div>
