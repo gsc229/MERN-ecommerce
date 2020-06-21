@@ -10,7 +10,6 @@ import Checkout from './Checkout'
 const Cart = (props) => {
 
 
-
   const [items, setItems] = useState([])
   const [refresh, setRefresh] = useState(false)
 
@@ -59,11 +58,13 @@ const Cart = (props) => {
       <div className="col-6">
         <h2 className="mb-4">Your cart summary: </h2>
         <hr />
-        <Checkout products={items} />   
+        <Checkout 
+        products={items} 
+        setRefresh={setRefresh}
+        refresh={refresh}
+        />   
       </div>
     </div>
-    
-      
     </Layout>
   )
 }

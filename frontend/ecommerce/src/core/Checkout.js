@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
-import {Link} from 'react-router-dom'
+import {Link, Redirect} from 'react-router-dom'
+import {emptyCart} from './cartHelpers'
 import {isAuthenticated} from '../auth'
 import {getBraintreeClientToken, processPayment} from './apiCore'
 import DropIn from 'braintree-web-drop-in-react'
@@ -7,9 +8,12 @@ import DropIn from 'braintree-web-drop-in-react'
 
 
 
-const Checkout = ({products}) => {
+const Checkout = ({
+  products, 
+  setRefresh,
+  refresh}) => {
 
-
+  const [redirect, setRedirect] = useState(false)
   const [paymentData, setPaymentData] = useState({
     success: false,
     clientToken: null,
@@ -19,7 +23,7 @@ const Checkout = ({products}) => {
   })
 
   const userId = isAuthenticated() && isAuthenticated().user._id
-
+  console.log('PAYMENTDATA.CLIENTTOKEN: ', paymentData.clientToken)
   const getTotal = () => {
     return products.reduce((currentValue, nextValue)=>{
       return currentValue + nextValue.count * nextValue.price
@@ -79,6 +83,10 @@ const Checkout = ({products}) => {
           } else{
             setPaymentData({...paymentData, success: response.data.success})
             // empty cart 
+            emptyCart(()=>{
+              console.log('PAYMENT SUCCESS AND CART EMPTIED')
+              setRefresh(!refresh)
+            })
             // create order
           }
         })
@@ -100,7 +108,10 @@ const Checkout = ({products}) => {
         <div>
           <DropIn 
           options={{
-            authorization: paymentData.clientToken
+            authorization: paymentData.clientToken,
+            paypal: {
+              flow: "vault"
+            }
           }} 
           onInstance={instance => {return paymentData.instance=instance} }
           />
@@ -122,12 +133,17 @@ const Checkout = ({products}) => {
     </div>
     )
 
-
+  /* const shouldRedirect = redirect => {
+    if(redirect){
+      return <Redirect to={props.match.path} />
+    }
+  } */
 
   return (
     <div>
       <h2>Total: ${getTotal()}</h2>
       {showSuccess()}
+
       {showError(paymentData.error)}
       {showCheckout()}
     </div>

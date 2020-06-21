@@ -110,11 +110,11 @@ export const getBraintreeClientToken = (userId) => {
   return axiosWIthAuth()
   .get(`/braintree/getToken/${userId}`)
   .then(response=>{
-    console.log('apiCore listRelated response: ', response)
+    console.log('apiCore getBraintreeClientToken response: ', response)
     return response.data
   })
   .catch(error=>{
-    console.log('ERROR, apiCore listRelated:', error.response)
+    console.log('ERROR, apiCore getBraintreeClientToken:', error.response)
     return error.response
   })
 }
