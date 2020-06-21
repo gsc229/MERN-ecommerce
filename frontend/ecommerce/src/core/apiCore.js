@@ -105,3 +105,18 @@ export const listRelated = (productId) => {
     return error.response
   })
 }
+
+export const getBraintreeClientToken = (userId) => {
+  return axiosWIthAuth()
+  .get(`/braintree/getToken/${userId}`)
+  .then(response=>{
+    console.log('apiCore listRelated response: ', response)
+    return response.data
+  })
+  .catch(error=>{
+    console.log('ERROR, apiCore listRelated:', error.response)
+    return error.response
+  })
+}
+
+
