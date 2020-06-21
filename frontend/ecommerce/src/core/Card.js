@@ -2,13 +2,22 @@ import React, {useState} from 'react'
 import {Link, Redirect} from 'react-router-dom'
 import Image from './ShowImage'
 import moment from 'moment'
-import {addItem, updateItem} from './cartHelpers'
+import {addItem, updateItem, removeItem} from './cartHelpers'
 
-const Card = ({product, viewProductButton = true, viewAddToCartButton = true, cartUpdate=false}) => {
-
+const Card = ({
+  props,
+  product, 
+  viewProductButton = true, 
+  viewAddToCartButton = true, 
+  cartUpdate=false, 
+  removeProductButton=false,
+  setRefresh,
+  refresh
+}) => {
+  console.log('CARD PROPS: ', props)
   const [redirect, setRedirect] = useState(false)
   const [count, setCount] = useState(product.count)
-
+  console.log(redirect)
   const showViewButton = (showButton) => {
     return(showButton &&
     <Link to={`/product/${product._id}`}>
@@ -26,7 +35,7 @@ const Card = ({product, viewProductButton = true, viewAddToCartButton = true, ca
 
   const shouldRedirect = redirect => {
     if(redirect){
-      return <Redirect to="/cart" />
+      return <Redirect to={props.match.path} />
     }
   }
 
@@ -34,6 +43,16 @@ const Card = ({product, viewProductButton = true, viewAddToCartButton = true, ca
     (showButton && <button onClick={addToCart} className="btn btn-outline-warning mt-2 mb-2">
       Add to Cart
     </button>)
+  )
+
+  const showRemoveButton = (showButton) => (
+    showButton && <button 
+    onClick={()=>{
+      removeItem(product._id)
+      setRefresh(!refresh)
+      
+    }} 
+    className='btn btn-outline-danger mt-2 mb-2'>Remove Item</button>
   )
 
 
@@ -66,7 +85,7 @@ const Card = ({product, viewProductButton = true, viewAddToCartButton = true, ca
       <div className="card">
         <div className="card-header name">{product.name}</div>
         <div className="card-body">
-          {shouldRedirect(redirect)}
+        {shouldRedirect(redirect)}
         <Image item={product} url='product' />
         <p className='lead mt-2'>{product.description.substring(0, 100)}...</p>
         <p className='black-10'>${product.price}</p>
@@ -74,9 +93,10 @@ const Card = ({product, viewProductButton = true, viewAddToCartButton = true, ca
         <p className="black-8">Added {moment(product.createdAt).fromNow()}</p>
         {showStock(product.quantity)}
         <br/>
-        {showViewButton(viewProductButton)}        
+        {showViewButton(viewProductButton)}
+        {showRemoveButton(removeProductButton)}       
         {showAddToCartButton(viewAddToCartButton)}
-        {showCartUpdateOptions(cartUpdate)}
+        {showCartUpdateOptions(cartUpdate)}        
         </div>
       </div>
     

@@ -7,15 +7,17 @@ import { Link } from 'react-router-dom'
 
 
 
-const Cart = () => {
+const Cart = (props) => {
 
 
 
   const [items, setItems] = useState([])
+  const [refresh, setRefresh] = useState(false)
 
   useEffect(()=>{
     setItems(getCart())
-  }, [])
+  }, [refresh])
+
 
   const showItems = items => {
     return(
@@ -23,7 +25,16 @@ const Cart = () => {
         <h2>Your cart has {`${items.length}`} items</h2>
         <hr/>
         {items.map((product, i)=>(
-          <Card key={i} product={product} viewAddToCartButton={false} cartUpdate={true} />
+          <Card 
+          key={i}
+          props={props}
+          product={product} 
+          viewAddToCartButton={false} 
+          cartUpdate={true}
+          removeProductButton={true}
+          setRefresh={setRefresh}
+          refresh={refresh}
+          />
         ))}
       </div>
     )

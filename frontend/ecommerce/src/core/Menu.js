@@ -17,7 +17,7 @@ const Menu = ({history}) => {
 
   useEffect(()=>{
     setRefresh(!refresh)
-  },[itemTotal])
+  },[itemTotal()])
   
   
   
@@ -33,7 +33,7 @@ const Menu = ({history}) => {
 
 
         <li className="nav-item">
-          <Link className="nav-link" to="/cart" style={isActive(history, '/cart')}>Cart <sup className='cart-badge'><small >{itemTotal()}</small></sup> </Link>
+          <Link className="nav-link" to="/cart" style={isActive(history, '/cart')}>Cart <sup className='cart-badge'><small>{itemTotal()}</small></sup> </Link>
         </li>
 
         
