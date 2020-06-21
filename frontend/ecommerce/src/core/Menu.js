@@ -1,4 +1,4 @@
-import React, {Fragment, useEffect} from 'react'
+import React, {Fragment, useEffect, useState} from 'react'
 import {Link, withRouter} from 'react-router-dom'
 import {signout, isAuthenticated} from '../auth'
 import {itemTotal} from './cartHelpers'
@@ -12,6 +12,12 @@ const isActive = (history, path)=>{
 
 const Menu = ({history}) => {
   
+  const [refresh, setRefresh] = useState(false)
+
+
+  useEffect(()=>{
+    setRefresh(!refresh)
+  },[itemTotal])
   
   
   
