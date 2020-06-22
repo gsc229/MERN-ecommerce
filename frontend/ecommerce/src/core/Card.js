@@ -8,10 +8,10 @@ const Card = ({
   props,
   product,
   itemInCart=false,
-  viewProductButton = true, 
-  viewAddToCartButton = true, 
+  showViewProductButton = true, 
+  addToCart_or_ChangeQtyRemoveBtns = true, 
   cartUpdate=false, 
-  removeProductButton=false,
+  showRemoveProductButton=false,
   setRefresh=function(z){ console.log(z)},
   refresh=false
 }) => {
@@ -19,17 +19,7 @@ const Card = ({
   const [redirect, setRedirect] = useState(false)
   const [count, setCount] = useState(product.count)
   
-  const refreshRedirect = () => (props.history.push(props.match.url))
-  
-
-  const showViewButton = (showButton) => {
-    return(showButton &&
-    <Link to={`/product/${product._id}`}>
-      <button onClick={()=> setRefresh(!refresh)} className="btn btn-outline-primary mt-2 mb-2 mr-2">
-        View Product
-      </button>
-    </Link>)
-  }
+  const refreshRedirect = () => (props.history.push(props.match.url))   
 
   const addToCart = () => {
     addItem(product, ()=>{      
@@ -45,15 +35,27 @@ const Card = ({
     }
   }
 
-  const showAddToCartButton = (showButton) => {
+  /* BUTTON - VIEW PRODUCT */
+  const viewProductButton = (showButton) => {
+    return(showButton &&
+    <Link to={`/product/${product._id}`}>
+      <button onClick={()=> setRefresh(!refresh)} className="btn btn-outline-primary mt-2 mb-2 mr-2">
+        View Product
+      </button>
+    </Link>)
+  }
+  /* BUTTON - ADD TO CART  */
+  const addToCartButton = (showButton) => {
 
     if(showButton){
+      // if the item is in the cart, don't need add to cart, instead show
       if(itemInCart){
         return (
       <div>
         <h4>This item is in your cart</h4>
-        {showCartUpdateOptions(true)}
-        {showRemoveButton(true, false)}
+        {changeQuantityBar(true)}
+        {/* reusing the remove button */}
+        {removeProductButton(true, false)}
       </div>
       )
       } else{
@@ -70,8 +72,8 @@ const Card = ({
     itemInCart ? 
       <div>
         <h4>This item is in your cart</h4>
-        {showCartUpdateOptions(true)}
-        {showRemoveButton(true, false)}
+        {changeQuantityBar(true)}
+        {removeProductButton(true, false)}
       </div> : 
       <button 
       onClick={addToCart} 
@@ -79,12 +81,11 @@ const Card = ({
         Add to Cart
       </button> */
   }
-
-  const showRemoveButton = (showButton, refreshPage=true) => (
+  /* BUTTON - REMOVE */
+  const removeProductButton = (showButton, refreshPage=true) => (
     showButton && <button 
     onClick={()=>{
-      removeItem(product._id)
-      
+      removeItem(product._id)      
       refreshRedirect()
       if(refreshPage){
         setRefresh(!refresh)
@@ -108,7 +109,7 @@ const Card = ({
     }
   }
 
-  const showCartUpdateOptions = (on) => {
+  const changeQuantityBar = (on) => {
     return on &&
      <div className='input-group mb-3'>
        <div className="input-group-prepend">
@@ -132,10 +133,10 @@ const Card = ({
         <p className="black-8">Added {moment(product.createdAt).fromNow()}</p>
         {showStock(product.quantity)}
         <br/>
-        {showViewButton(viewProductButton)}
-        {showRemoveButton(removeProductButton)}       
-        {showAddToCartButton(viewAddToCartButton)}
-        {showCartUpdateOptions(cartUpdate)}        
+        {viewProductButton(showViewProductButton)}
+        {removeProductButton(showRemoveProductButton)}       
+        {addToCartButton(addToCart_or_ChangeQtyRemoveBtns)}
+        {changeQuantityBar(cartUpdate)}        
         </div>
       </div>
     

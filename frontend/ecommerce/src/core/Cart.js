@@ -27,7 +27,7 @@ const Cart = (props) => {
           key={i}
           props={props}
           product={product} 
-          viewAddToCartButton={false} 
+          addToCart_or_ChangeQtyRemoveBtns={false} 
           cartUpdate={true}
           removeProductButton={true}
           setRefresh={setRefresh}
@@ -41,8 +41,6 @@ const Cart = (props) => {
   const noItemsMessage = () => 
     (<h2>Your cart is empty. <br/><Link to='/shop'>Continue Shopping</Link></h2>)
   
-
-
   return (
     <Layout
       title={'Shopping Cart'}
