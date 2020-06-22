@@ -25,8 +25,9 @@ const Shop = (props) => {
   const init = () => { 
     getCategories().then(data => {
       if(data.error){
-        console.log('ERROR AddProduct.js init')
+        
         setError(data.error)
+        console.log('ERROR AddProduct.js init: ', error)
       } else {
         setCategories(data)
       }
@@ -55,7 +56,7 @@ const Shop = (props) => {
 
     const newFilters = {...myFilters}
 
-    if(filterBy == 'price'){
+    if(filterBy === 'price'){
       console.log('price Filter: ', filters)
       let priceValues = handlePrice(filters)
       newFilters.filters[filterBy] = priceValues

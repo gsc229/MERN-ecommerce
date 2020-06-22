@@ -9,13 +9,14 @@ const Home = (props) => {
   const [productsBySell, setProductsBySell] = useState([])
   const [productsByArrival, setProductsByArrival] = useState([])
   const [error, setError] = useState([])
-
+  
 
   const loadProductsBySell = ()=>{
     getProducts('sold')
     .then(data=>{
       if(data.error){
         setError(data.error)
+        console.log('Home.js loadProductBySell Error: ', error)
       } else{
         setProductsBySell(data)
       }

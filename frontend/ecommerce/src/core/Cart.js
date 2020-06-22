@@ -9,7 +9,6 @@ import Checkout from './Checkout'
 
 const Cart = (props) => {
 
-
   const [items, setItems] = useState([])
   const [refresh, setRefresh] = useState(false)
 

@@ -1,65 +1,103 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {Link, Redirect} from 'react-router-dom'
 import Image from './ShowImage'
 import moment from 'moment'
-import {addItem, updateItem, removeItem} from './cartHelpers'
+import {addItem, updateItem, removeItem, checkForItemInCart, itemTotal} from './cartHelpers'
 
 const Card = ({
   props,
-  product, 
+  product,
+  itemInCart=false,
   viewProductButton = true, 
   viewAddToCartButton = true, 
   cartUpdate=false, 
   removeProductButton=false,
-  setRefresh,
-  refresh
+  setRefresh=function(z){ console.log(z)},
+  refresh=false
 }) => {
   
   const [redirect, setRedirect] = useState(false)
   const [count, setCount] = useState(product.count)
+  
+  const refreshRedirect = () => (props.history.push(props.match.url))
+  
 
   const showViewButton = (showButton) => {
     return(showButton &&
     <Link to={`/product/${product._id}`}>
-          <button className="btn btn-outline-primary mt-2 mb-2 mr-2">
-            View Product
-          </button>
+      <button onClick={()=> setRefresh(!refresh)} className="btn btn-outline-primary mt-2 mb-2 mr-2">
+        View Product
+      </button>
     </Link>)
   }
 
   const addToCart = () => {
-    addItem(product, ()=>{
-      setRedirect(true)
+    addItem(product, ()=>{      
+      refreshRedirect()
     })
+    
+    
   }
 
-  const shouldRedirect = redirect => {
-    if(redirect){
+  const shouldRedirect = command => {
+    if(command){
       return <Redirect to={props.match.path} />
     }
   }
 
-  const showAddToCartButton = (showButton) => (
-    (showButton && <button onClick={addToCart} className="btn btn-outline-warning mt-2 mb-2">
-      Add to Cart
-    </button>)
-  )
+  const showAddToCartButton = (showButton) => {
 
-  const showRemoveButton = (showButton) => (
+    if(showButton){
+      if(itemInCart){
+        return (
+      <div>
+        <h4>This item is in your cart</h4>
+        {showCartUpdateOptions(true)}
+        {showRemoveButton(true, false)}
+      </div>
+      )
+      } else{
+        return (
+          <button 
+            onClick={addToCart} 
+            className="btn btn-outline-warning mt-2 mb-2">
+              Add to Cart
+          </button>
+          )
+      }
+    }
+    /* showButton && 
+    itemInCart ? 
+      <div>
+        <h4>This item is in your cart</h4>
+        {showCartUpdateOptions(true)}
+        {showRemoveButton(true, false)}
+      </div> : 
+      <button 
+      onClick={addToCart} 
+      className="btn btn-outline-warning mt-2 mb-2">
+        Add to Cart
+      </button> */
+  }
+
+  const showRemoveButton = (showButton, refreshPage=true) => (
     showButton && <button 
     onClick={()=>{
       removeItem(product._id)
-      setRefresh(!refresh)
       
+      refreshRedirect()
+      if(refreshPage){
+        setRefresh(!refresh)
+      }      
     }} 
     className='btn btn-outline-danger mt-2 mb-2'>Remove Item</button>
   )
 
 
   const showStock = (quantity) => {
-  return (quantity > 0 ? <span className='badge badge-primary badge-pill' >{`${quantity} In Stock`}</span> 
-    : 
-    <span className='badge badge-primary badge-pill' >Out of Stock</span>)
+    return (quantity > 0 ? <span className='badge badge-primary badge-pill' >{`${quantity} In Stock`}</span> 
+      : 
+      <span className='badge badge-primary badge-pill' >Out of Stock</span>)
   }
 
 
@@ -76,8 +114,8 @@ const Card = ({
        <div className="input-group-prepend">
          <span className="input-group-text">Adjust Quantity</span>
        </div>
-       <input type="number" value={count} className="form-control" onChange={handleChange(product._id)}/>
-    </div>
+       <input type="number" value={count ? count : 1} className="form-control" onChange={handleChange(product._id)}/>
+     </div>
   }
 
   return (
@@ -86,6 +124,7 @@ const Card = ({
         <div className="card-header name">{product.name}</div>
         <div className="card-body">
         {shouldRedirect(redirect)}
+        <h2>{product._id}</h2>
         <Image item={product} url='product' />
         <p className='lead mt-2'>{product.description.substring(0, 100)}...</p>
         <p className='black-10'>${product.price}</p>

@@ -92,3 +92,26 @@ export const emptyCart = next => {
     
   }
 }
+
+
+export const checkForItemInCart = (productId) => {
+  let cart = []
+  let inCart = false
+  if(typeof window !== 'undefined'){
+    if(localStorage.getItem('cart')){
+      cart = JSON.parse(localStorage.getItem('cart'))
+      
+    }
+    
+    cart.map((product)=>{
+      
+      if(product._id == productId){
+        
+        inCart = true
+      }
+    }) 
+    
+  }
+
+  return inCart
+}
