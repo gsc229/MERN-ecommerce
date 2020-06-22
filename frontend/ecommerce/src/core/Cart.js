@@ -27,9 +27,8 @@ const Cart = (props) => {
           key={i}
           props={props}
           product={product} 
-          addToCart_or_ChangeQtyRemoveBtns={false} 
-          cartUpdate={true}
-          removeProductButton={true}
+          itemInCart={'viewing-cart-page'}
+
           setRefresh={setRefresh}
           refresh={refresh}
           />

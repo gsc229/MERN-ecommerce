@@ -5,26 +5,34 @@
   z-index: 100;
 }
 
+.layout-container{
+  width: 100%;
+  position: relative;
+  top: 30px;
+}
 
 .cart-badge{
-  border: 2px solid red;
-  background-color:  red;
+  
   padding: 5px;
   font-size: 15px;
   font-style: italic;
   border-radius: 50%;
   display: inline-block;  
-  height: 15px;
-  width: 15px;
-  text-align: center;    
+  height: 20px;
+  width: 20px;    
   font-weight: bolder;
+  
 }
 
-.cart-badge small{  
+.cart-badge small{
   position: relative;
-  right: 3px;
-  margin: 0 auto;
+  color: orangered;
+  font-weight: bolder;
+  font-size: 15px;
+  left: -4px;
 }
+
+
 
 
 /* 
@@ -45,8 +53,22 @@
 
 .name{
   background: indigo;
+  border: indigo;
   color: white;
   font-weight: bold;
+}
+
+.in_cart_item{
+  background: #00DD55;
+  color: black;
+  font-weight: bold;
+}
+
+
+/* CARDS */
+.card-body p{
+  padding: 10px;
+  
 }
 
 /* black shade form 10-1 */

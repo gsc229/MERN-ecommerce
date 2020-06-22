@@ -57,7 +57,7 @@ const Product = (props) => {
         props={props}
         itemInCart={itemInCart}
         product={product} 
-        viewProductButton={false}        
+        showViewProductButton={false}        
         refresh={refresh}
         setRefresh={setRefresh}
         />}

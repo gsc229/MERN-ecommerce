@@ -2,10 +2,10 @@ import React, {useState, useEffect} from 'react'
 import Layout from './Layout'
 import Card from './Card'
 import {getCategories, getFilteredProducts} from './apiCore'
+import {checkForItemInCart} from './cartHelpers'
 import Checkbox from './Checkbox'
 import RadioBox from './RadioBox'
 import {prices} from './fixedPrices'
-
 
 const Shop = (props) => {
 
@@ -133,7 +133,13 @@ const Shop = (props) => {
           <div className='row'>
             
             {filteredResults.map((product,i)=>(
-              <div className='col-4 mb-3' key={i}><Card props={props} product={product} /></div>
+              <div className='col-4 mb-3' key={i}>
+                <Card 
+                props={props} 
+                product={product}
+                itemInCart={checkForItemInCart(product._id)} 
+                />
+              </div>
             ))}
                       
           </div>
