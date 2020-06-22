@@ -23,7 +23,7 @@ const Checkout = ({
   })
 
   const userId = isAuthenticated() && isAuthenticated().user._id
-  console.log('PAYMENTDATA.CLIENTTOKEN: ', paymentData.clientToken)
+  //console.log('PAYMENTDATA.CLIENTTOKEN: ', paymentData.clientToken)
   const getTotal = () => {
     return products.reduce((currentValue, nextValue)=>{
       return currentValue + nextValue.count * nextValue.price

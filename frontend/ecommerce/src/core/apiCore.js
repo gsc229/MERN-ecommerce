@@ -97,11 +97,11 @@ export const listRelated = (productId) => {
   return axiosWIthAuth()
   .get(`/products/related/${productId}`)
   .then(response=>{
-    console.log('apiCore listRelated response: ', response)
+    //console.log('apiCore listRelated response: ', response)
     return response.data
   })
   .catch(error=>{
-    console.log('ERROR, apiCore listRelated:', error.response)
+    //console.log('ERROR, apiCore listRelated:', error.response)
     return error.response
   })
 }

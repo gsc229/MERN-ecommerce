@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from 'react'
 import Card from './Card'
 import {getCategories, list} from './apiCore'
+import {checkForItemInCart} from './cartHelpers'
 
-
-const Search = (props) => {
+const Search = ({props}) => {
 
   const [data, setData]=useState({
     categories: [],
@@ -77,7 +77,13 @@ const Search = (props) => {
         </h2>
         <div className='row'>
           {results.map((product, i)=>(
-            <div className='col-4 mb-3' key={i}><Card props={props} product={product} /></div>
+            <div className='col-4 mb-3' key={i}>
+              <Card 
+              props={props} 
+              product={product} 
+              itemInCart={checkForItemInCart(product._id)} 
+              />
+            </div>
           ))}
         </div>
       </div>

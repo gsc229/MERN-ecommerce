@@ -9,7 +9,6 @@ import Checkout from './Checkout'
 
 const Cart = (props) => {
 
-
   const [items, setItems] = useState([])
   const [refresh, setRefresh] = useState(false)
 
@@ -28,9 +27,8 @@ const Cart = (props) => {
           key={i}
           props={props}
           product={product} 
-          viewAddToCartButton={false} 
-          cartUpdate={true}
-          removeProductButton={true}
+          itemInCart={'viewing-cart-page'}
+
           setRefresh={setRefresh}
           refresh={refresh}
           />
@@ -42,8 +40,6 @@ const Cart = (props) => {
   const noItemsMessage = () => 
     (<h2>Your cart is empty. <br/><Link to='/shop'>Continue Shopping</Link></h2>)
   
-
-
   return (
     <Layout
       title={'Shopping Cart'}
